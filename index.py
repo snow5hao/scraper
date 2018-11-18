@@ -5,7 +5,10 @@ import re
 import random
 import config
 from bs4 import BeautifulSoup
-def getSoup(url,charset="utf-8"):
+from lxml import etree
+from chardet import detect
+
+def getProxy(url,charset="utf-8"):
     req = request.Request(url)
     req.add_header('User-agent',random.choice(config.USER_AGENTS))
     content = request.urlopen(req).read().decode(charset,'ignore')
@@ -25,7 +28,7 @@ def getSoup(url,charset="utf-8"):
             pass
     return allProxy
 
-allProxy=getSoup('http://www.xicidaili.com/')
+allProxy=getProxy('http://www.xicidaili.com/')
 
 def download(url,user_agent=random.choice(config.USER_AGENTS),retryNumber=config.RETRY_TIME):
     #设置代理(寻找代理http://www.xicidaili.com/)
